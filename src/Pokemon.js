@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Link, CircularProgress, Button } from '@material-ui/core';
 import { toFirstCharUppercase } from './constants';
+import axios from 'axios';
 
 const Pokemon = (props) => {
   const { history, match } = props;
   const { params } = match;
   const { pokemonId } = params;
   const [pokemon, setPokemon] = useState(undefined);
+
+  useEffect(() => {
+    axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+    .then(function(response) {
+      const { data } = response;
+      setPokemon(data);
+    })
+    .catch((error) => {
+      setPokemon(false);
+    })
+  }, [pokemonId])
 
   // Three states being used
   // 1. pokemon = undefined, this means we're getting the info from the API -> return loading progress
@@ -46,7 +58,7 @@ const Pokemon = (props) => {
     {pokemon !== undefined && pokemon && generatePokemonJsx()}
     {pokemon === false && <Typography>Pokemon not found</Typography>}
     {pokemon !== undefined && (
-      <Button variant='contained' onClick={() => history.pushState('/')}>
+      <Button variant='contained' onClick={() => history.push('/')}>
         Back to Pokedex
       </Button>
     )}
