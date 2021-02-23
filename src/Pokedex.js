@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Grid, Card } from '@material-ui/core';
+import { AppBar, Toolbar, Grid, Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -13,7 +13,10 @@ const useStyles = makeStyles({
 const getPokemonCard = () => {
     return(
         <Grid item xs={12} sm={4}>
-            <Card>hi</Card>
+            <Card>
+                {/* using cardcontent helps with spacing */}
+                <CardContent>hi</CardContent>
+            </Card>
         </Grid>
     )
 }
@@ -26,9 +29,11 @@ const Pokedex = () => {
             <Toolbar />
         </AppBar>
         <Grid container spacing={2} className={classes.pokedexContainer}>
-            <Grid item xs={4}>
                 {getPokemonCard()}
-            </Grid>
+                {getPokemonCard()}
+                {getPokemonCard()}
+                {getPokemonCard()}
+                {getPokemonCard()}
         </Grid>
         </>
     )
