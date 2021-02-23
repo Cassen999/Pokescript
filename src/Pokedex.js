@@ -10,23 +10,26 @@ const useStyles = makeStyles({
     paddingRight: '50px',
   },
   cardMedia: {
-    margin: 'auto'
+    margin: 'auto',
+  },
+  cardContent: {
+    textAlign: 'center',
   }
 })
 
+ // Makes first character uppercase and .slice is appending the rest of the name
+const toFirstCharUppercase = name => 
+  name.charAt(0).toUpperCase() + name.slice(1)
 
-const Pokedex = (pokemonId) => {
+const Pokedex = props => {
+  // Destructures props and allows for use of history
+  const { history } = props;
   const classes = useStyles();
 
   // pokemonData is the getter
   // setPokemonData is the setter
   // useState(mockData) sets the mockData as the default state
   const [pokemonData, setPokemonData] = useState(mockData);
-
-  const toFirstCharUppercase = name => 
-  // Makes first character uppercase and .slice is appending the rest of the name
-    name.charAt(0).toUppercase() + name.slice(1)
-  
   
   const getPokemonCard = (pokemonId) => {
     const { id, name } = pokemonData[`${pokemonId}`];
@@ -34,14 +37,15 @@ const Pokedex = (pokemonId) => {
     console.log(pokemonData[`${pokemonId}`])
     return(
       <Grid item xs={12} sm={4} ley={pokemonId}>
-        <Card>
+        {/* This on click pushes the /${pokemonId} into the url */}
+        <Card onClick = {() => history.push(`/${pokemonId}`)}>
           <CardMedia
             className={classes.cardMedia}
             image={sprite}
             style={{width: '130px', height: '130px'}} />
           {/* using cardcontent helps with spacing */}
-          <CardContent>
-            <Typography>{`${id}, ${toFirstCharUppercase(name)}`}</Typography>
+          <CardContent className={classes.cardContent}>
+            <Typography>{`${id}.${toFirstCharUppercase(name)}`}</Typography>
           </CardContent>
         </Card>
     </Grid>
