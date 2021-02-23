@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AppBar, Toolbar, Grid, Card, CardContent, CircularProgress, CardMedia, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import mockData from './MockData';
+import { toFirstCharUppercase } from './constants';
 
 const useStyles = makeStyles({
   pokedexContainer: {
@@ -16,10 +17,6 @@ const useStyles = makeStyles({
     textAlign: 'center',
   }
 })
-
- // Makes first character uppercase and .slice is appending the rest of the name
-const toFirstCharUppercase = name => 
-  name.charAt(0).toUpperCase() + name.slice(1)
 
 const Pokedex = props => {
   // Destructures props and allows for use of history
