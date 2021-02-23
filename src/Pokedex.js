@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, Grid, Card, CardContent, CircularProgress, CardMedia, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Grid, Card, CardContent, CircularProgress, CardMedia, Typography, TextField } from '@material-ui/core';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
-import mockData from './MockData';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import SearchIcon from '@material-ui/icons/Search';
 import { toFirstCharUppercase } from './constants';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   pokedexContainer: {
     paddingTop: '20px',
     paddingLeft: '50px',
@@ -16,8 +16,24 @@ const useStyles = makeStyles({
   },
   cardContent: {
     textAlign: 'center',
+  },
+  searchContainer: {
+    display: 'flex',
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    marginTop: '5px',
+    marginBottom: '5px',
+  },
+  searchIcon: {
+    alignSelf: 'flex-end',
+    marginBottom: '5px',
+  },
+  searchInput: {
+    width: '200px',
+    margin: '5px',
   }
-})
+}));
 
 const Pokedex = props => {
   // Destructures props and allows for use of history
@@ -70,7 +86,16 @@ const Pokedex = props => {
   return(
     <>
       <AppBar position="static">
-        <Toolbar />
+        <Toolbar>
+          <div className={classes.searchContainer}>
+            {/* Creates the search bar */}
+            <SearchIcon className={classes.searchIcon} />
+            <TextField
+              className={classes.searchInput}
+              label="Pokemon"
+              variant='standard' />
+          </div>
+        </Toolbar>
       </AppBar>
       {pokemonData ? (
         <Grid container spacing={2} className={classes.pokedexContainer}>
@@ -78,7 +103,8 @@ const Pokedex = props => {
             getPokemonCard(pokemonId)
           )}
         </Grid>
-      ) : (
+        ) : (
+          // Uses the circular progress while the pokemon data loads
         <CircularProgress />
       )}
     </>
