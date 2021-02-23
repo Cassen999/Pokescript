@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import mockData from './MockData';
-import { Typography, Link } from '@material-ui/core';
+import { Typography, Link, CircularProgress, Button } from '@material-ui/core';
 import { toFirstCharUppercase } from './constants';
 
 const Pokemon = (props) => {
-  const { match } = props;
+  const { history, match } = props;
   const { params } = match;
   const { pokemonId } = params;
-  const [pokemon, setPokemon] = useState(mockData[`${pokemonId}`]);
+  const [pokemon, setPokemon] = useState(undefined);
+
+  // Three states being used
+  // 1. pokemon = undefined, this means we're getting the info from the API -> return loading progress
+  // 2. pokemon = good data, this means we've gotten the data -> return actual data
+  // 3. pokemon = bad data / false -> return pokemon not found
 
   const generatePokemonJsx = () => {
     const { name, id, species, height, weight, types, sprites } = pokemon;
@@ -38,7 +42,14 @@ const Pokemon = (props) => {
   }
   return(
    <>
-    {generatePokemonJsx()}
+    {pokemon === undefined && <CircularProgress />}
+    {pokemon !== undefined && pokemon && generatePokemonJsx()}
+    {pokemon === false && <Typography>Pokemon not found</Typography>}
+    {pokemon !== undefined && (
+      <Button variant='contained' onClick={() => history.pushState('/')}>
+        Back to Pokedex
+      </Button>
+    )}
    </>
   );
 }
