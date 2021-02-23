@@ -44,6 +44,11 @@ const Pokedex = props => {
   // setPokemonData is the setter
   // useState(mockData) sets the mockData as the default state
   const [pokemonData, setPokemonData] = useState({});
+  const [filter, setFilter] = useState('');
+
+  const handleSearchChange = (e) => {
+    setFilter(e.target.value);
+  };
 
   // useEffect with an [] is the same as componentDidMount
   useEffect(() => {
@@ -91,6 +96,7 @@ const Pokedex = props => {
             {/* Creates the search bar */}
             <SearchIcon className={classes.searchIcon} />
             <TextField
+              onChange={handleSearchChange}
               className={classes.searchInput}
               label="Pokemon"
               variant='standard' />
@@ -100,6 +106,10 @@ const Pokedex = props => {
       {pokemonData ? (
         <Grid container spacing={2} className={classes.pokedexContainer}>
           {Object.keys(pokemonData).map((pokemonId) => 
+          // Different way of doing an if statement
+          // if pokemonData[pokemonId].name.includes(filter) is true, then getPokemonCard will run
+          // includes() returns true or false
+            pokemonData[pokemonId].name.includes(filter) &&
             getPokemonCard(pokemonId)
           )}
         </Grid>
