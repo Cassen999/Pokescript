@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Link, CircularProgress, Button } from '@material-ui/core';
+import { Typography, Link, CircularProgress, Button, Grid } from '@material-ui/core';
+import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
 import { makeStyles } from '@material-ui/core/styles';
 import { toFirstCharUppercase } from './constants';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import red from '@material-ui/core/colors/red';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import clsx from 'clsx';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -75,7 +63,7 @@ const Pokemon = (props) => {
   // 3. pokemon = bad data / false -> return pokemon not found
 
   const generatePokemonJsx = () => {
-    const { name, id, species, height, weight, types, sprites } = pokemon;
+    const { name, id, height, weight, types, sprites } = pokemon;
     const fullImageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
     const { front_default } = sprites;
     return(
@@ -87,12 +75,20 @@ const Pokemon = (props) => {
         </Typography>
         <img style={{width:'300px', height: '300px'}} src={fullImageUrl} alt={`Selected Pokemon`}/>
         <Typography variant='h3'>Pokemon Info</Typography>
-        <Typography>
-          {'Species: '}
-          <Link href={species.url}>{species.name}</Link>
-        </Typography>
-        <Typography>Height: {height}</Typography>
+        <Grid item xs={12} sm={4}>
+          <Typography>Height: {height}</Typography>
+        </Grid>
+        <Grid item xs={12} sm={4}>
         <Typography>Weight: {weight}</Typography>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Typography variant='h6'>Types: </Typography>
+          {types.map((typeInfo) => {
+            const { type } = typeInfo;
+            const { name } = type;
+            return <Typography key={name}>{`${name}`}</Typography>;
+          })}
+        </Grid>
         <Typography variant='h6'>Types: </Typography>
         {types.map((typeInfo) => {
           const { type } = typeInfo;
@@ -110,9 +106,13 @@ const Pokemon = (props) => {
     {pokemon === false && <Typography>Pokemon not found</Typography>}
     {pokemon !== undefined && (
       <center>
-        <Button variant='contained' onClick={() => history.push('/')}>
-          Back to Pokedex
-        </Button>
+        <></>
+        <Button 
+          variant='contained' 
+          color="primary" 
+          onClick={() => history.push('/')}>
+          <LaptopChromebookIcon /> Back to Pokedex <LaptopChromebookIcon />
+        </Button >
       </center>
     )}
    </div>
