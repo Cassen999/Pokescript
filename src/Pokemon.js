@@ -89,12 +89,6 @@ const Pokemon = (props) => {
             return <Typography key={name}>{`${name}`}</Typography>;
           })}
         </Grid>
-        <Typography variant='h6'>Types: </Typography>
-        {types.map((typeInfo) => {
-          const { type } = typeInfo;
-          const { name } = type;
-          return <Typography key={name}>{`${name}`}</Typography>;
-        })}
       </center>
       </>
     );
