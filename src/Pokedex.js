@@ -115,19 +115,6 @@ const Pokedex = props => {
 
     console.log(pokemonData[pokemonId])
     return(
-    //   <Grid item xs={12} sm={4} ley={pokemonId}>
-    //     {/* This on click pushes the /${pokemonId} into the url */}
-    //     <Card onClick = {() => history.push(`/${pokemonId}`)}>
-    //       <CardMedia
-    //         className={classes.cardMedia}
-    //         image={sprite}
-    //         style={{width: '130px', height: '130px'}} />
-    //       {/* using cardcontent helps with spacing */}
-    //       <CardContent className={classes.cardContent}>
-    //         <Typography>{`${id}.${toFirstCharUppercase(name)}`}</Typography>
-    //       </CardContent>
-    //     </Card>
-    // </Grid>
     <Grid item xs={12} sm={4} ley={pokemonId} >
       <Card className={classes.root}>
       <CardHeader
