@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Link, CircularProgress, Button, Grid } from '@material-ui/core';
+import { Typography, CircularProgress, Button, Grid } from '@material-ui/core';
 import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
 import { makeStyles } from '@material-ui/core/styles';
 import { toFirstCharUppercase } from './constants';
