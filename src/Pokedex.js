@@ -108,10 +108,6 @@ const Pokedex = props => {
   
   const getPokemonCard = (pokemonId) => {
     const { id, name, sprite } = pokemonData[pokemonId];
-    
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
 
     console.log(pokemonData[pokemonId])
     return(
@@ -143,23 +139,6 @@ const Pokedex = props => {
             Click to see Stats
           </Button>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Want to put what games this pokemon appears in</Typography>
-        </CardContent>
-      </Collapse>
     </Card>
     </Grid>
     )
